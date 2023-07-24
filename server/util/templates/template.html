@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Hello world!</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    {{#with venta}}
+    <div style="text-align: right;">
+        Santiago, {{fecha this.detalle.fecha}} <br><br>
+    </div>
+    <img src="https://workspacenow.cl/wp-content/uploads/2020/09/logo-wsn-acoplado.png" alt="logo" style="width: 100px;float: right;"/>
+    <b>Cliente:</b> {{nombre this.cliente.nombre}} {{nombre this.cliente.apellidos}}<br/>
+    <b>Rut:</b> {{nombre this.cliente.rut}} <br>
+    <b>Envío:</b> {{despacho.direccion}} {{despacho.aclaratoria}}
+    <br/>
+    <br>
+    {{/with}}
+    <table style="border: 1px solid;">
+        <tr>
+            <th scope="col">Producto</th>
+            <th scope="col">Detalle</th>
+            <th scope="col">Valor Uni</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col">Subtotal</th>
+        </tr>
+        {{#each venta.productos}}
+        <tr>
+            <td>{{this.nombre}}</td>
+            <td>{{this.descripcion}}</td>
+            <td>{{this.precio_vta}}</td>
+            <td>{{this.cantidad}}</td>
+            <td>{{mult this.precio_vta this.cantidad }}</td>
+        </tr>
+        {{/each}}
+        <tr>
+            <td colspan="5">
+                <hr>
+            </td>
+        </tr>
+        {{#with venta.detalle}}
+        <tr>
+            <td colspan="3"></td>
+            <td style="text-align: right;">
+                <b>Subtotal:</b>
+            </td>
+            <td style="text-align: right;">{{this.subtotal}}</td>
+        </tr>
+        <tr>
+            <td colspan="3"></td>
+            <td style="text-align: right;">
+                <b>Descuento:</b>
+            </td>
+            <td style="text-align: right;">{{this.descuento}}</td>
+        </tr>
+        <tr>
+            <td colspan="3"></td>
+            <td style="text-align: right;">
+                <b>Total:</b>
+            </td>
+            <td style="text-align: right;"><b>{{this.total}}</b></td>
+        </tr>
+        {{/with}}
+    </table>
+    <br>
+    <b>Observación: </b> {{obs venta.detalle.observacion}}
+    
+    <br>
+    <div  style="float: right;text-align: right;">
+        <img src="{{img venta._id}}" alt="{{venta._id}}"/><br/>
+        <b>Folio:</b> {{venta._id}}
+    </div>
+</body>
+
+</html>
